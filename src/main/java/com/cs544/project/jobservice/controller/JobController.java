@@ -24,4 +24,12 @@ public class JobController {
         return jobService.getJobWithCompany(id);
     }
 
+    @PutMapping(value = "/{id}", consumes = "application/json")
+    public ResponseTemplate updateJob(@PathVariable Long id, @RequestBody Job job) {
+        if (id != job.getJobId())
+            throw new IllegalArgumentException();
+        jobService.update(job);
+        return jobService.getJobWithCompany(job.getCompanyId());
+    }
+
 }

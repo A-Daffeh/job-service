@@ -21,14 +21,16 @@ public class JobService {
         return jobDao.save(job);
     }
 
-    public ResponseTemplate getJobWithCompany(Long id) {
+    public ResponseTemplate getJobWithCompany(Long jobId) {
         ResponseTemplate vo = new ResponseTemplate();
-        Job job = jobDao.getJobById(id);
-        Company company = restTemplate.getForObject("http://localhost:9900/companies/" + job.getCompanyId(), Company.class);
+        Job job = jobDao.getJobByJobId(jobId);
+        Company company = restTemplate.getForObject("http://COMPANY-SERVICE/companies/" + job.getCompanyId(), Company.class);
         vo.setJob(job);
         vo.setCompany(company);
         return vo;
     }
 
-
+    public void update(Job job) {
+        jobDao.save(job);
+    }
 }

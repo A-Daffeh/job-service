@@ -16,7 +16,7 @@ import javax.persistence.Lob;
 public class Job {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long jobId;
     private String jobTitle;
     @Lob
     private String description;

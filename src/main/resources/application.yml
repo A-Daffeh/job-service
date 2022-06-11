@@ -1,6 +1,8 @@
 server:
   port: 9901
 spring:
+  application:
+    name: JOB-SERVICE
   datasource:
     url: jdbc:mysql://localhost/cs544_project
     username: root
@@ -11,6 +13,14 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
 logging:
   level:
     root: DEBUG
