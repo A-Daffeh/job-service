@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/jobs")
@@ -35,6 +36,11 @@ public class JobController {
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public void deleteJob(@PathVariable Long id){
         jobService.deleteJob(id);
+    }
+
+    @GetMapping("/company/{id}")
+    public List<ResponseTemplate> getAllJobsByCompanyId(@PathVariable(name = "id") Long companyId){
+        return jobService.getAllJobsByCompanyId(companyId);
     }
 
 }

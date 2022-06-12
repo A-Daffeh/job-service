@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,5 +40,18 @@ public class JobService {
 
     public void deleteJob(Long id) {
         jobDao.deleteById(id);
+    }
+
+    public List<ResponseTemplate> getAllJobsByCompanyId(Long companyId) {
+        List<Job> jobs = jobDao.findByCompanyId(companyId);
+        List<ResponseTemplate> res = new ArrayList<>();
+        jobs.forEach(job -> {
+            ResponseTemplate vo = new ResponseTemplate();
+            Company company = restTemplate.getForObject("http://COMPANY-SERVICE/companies/" + job.getCompanyId(), Company.class);
+            vo.setJob(job);
+            vo.setCompany(company);
+            res.add(vo);
+        });
+        return res;
     }
 }
