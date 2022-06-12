@@ -43,4 +43,8 @@ public class JobController {
         return jobService.getAllJobsByCompanyId(companyId);
     }
 
+    @GetMapping("/job/{title}")
+    public ResponseTemplate getJobByTitle(@PathVariable String title){
+        return jobService.getJobByTitle(title);
+    }
 }

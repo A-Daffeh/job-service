@@ -54,4 +54,14 @@ public class JobService {
         });
         return res;
     }
+
+    public ResponseTemplate getJobByTitle(String title) {
+        Job job = jobDao.findByJobTitleIgnoreCase(title);
+        ResponseTemplate vo = new ResponseTemplate();
+        assert job != null;
+        Company company = restTemplate.getForObject("http://COMPANY-SERVICE/companies/" + job.getCompanyId(), Company.class);
+        vo.setJob(job);
+        vo.setCompany(company);
+        return vo;
+    }
 }

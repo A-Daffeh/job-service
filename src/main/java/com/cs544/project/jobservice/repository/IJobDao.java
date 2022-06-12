@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface IJobDao extends JpaRepository<Job, Long> {
     List<Job> findByCompanyId(Long companyId);
+    Job findByJobTitleIgnoreCase(String title);
 }
