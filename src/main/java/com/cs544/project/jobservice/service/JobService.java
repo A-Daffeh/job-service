@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 @Service
 public class JobService {
@@ -23,14 +24,19 @@ public class JobService {
 
     public ResponseTemplate getJobWithCompany(Long jobId) {
         ResponseTemplate vo = new ResponseTemplate();
-        Job job = jobDao.getJobByJobId(jobId);
+        Job job = jobDao.findById(jobId).orElse(null);
+        assert job != null;
         Company company = restTemplate.getForObject("http://COMPANY-SERVICE/companies/" + job.getCompanyId(), Company.class);
         vo.setJob(job);
         vo.setCompany(company);
         return vo;
     }
 
-    public void update(Job job) {
-        jobDao.save(job);
+    public Job update(Job job) {
+        return jobDao.save(job);
+    }
+
+    public void deleteJob(Long id) {
+        jobDao.deleteById(id);
     }
 }

@@ -32,4 +32,9 @@ public class JobController {
         return jobService.getJobWithCompany(job.getCompanyId());
     }
 
+    @DeleteMapping(value = "/{id}", produces = "application/json")
+    public void deleteJob(@PathVariable Long id){
+        jobService.deleteJob(id);
+    }
+
 }

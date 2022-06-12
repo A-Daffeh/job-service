@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IJobDao extends JpaRepository<Job, Long> {
-    Job getJobByJobId(Long jobId);
+
 }
